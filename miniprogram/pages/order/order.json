@@ -1,0 +1,6 @@
+{
+  "navigationBarTitleText": "一起吃喝",
+  "usingComponents": {
+    "counter": "/components/counter/counter"
+  }
+}

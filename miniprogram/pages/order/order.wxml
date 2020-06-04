@@ -1,0 +1,15 @@
+<!--pages/order/order.wxml-->
+<view class="container">
+  <!-- 导航 -->
+  <view class="list">
+    <view class="list-item">
+      <text class="request-text">喝奶茶</text>
+      <counter></counter>
+    </view>
+  </view>
+  <view class="guide" wx:if="{{step === 1}}">
+    <div class="nav">
+      <button class="next" size="mini" type="default" bindtap="nextStep">下单</button>
+    </div>
+  </view>
+</view>
