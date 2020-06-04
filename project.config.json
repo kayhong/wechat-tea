@@ -13,9 +13,9 @@
 		"showShadowRootInWxmlPanel": true,
 		"scopeDataCheck": false,
 		"enhance": true,
-		"useCompilerModule": false
+		"useCompilerModule": true
 	},
-	"appid": "touristappid",
+	"appid": "wx5fad0d6d940bc8bd",
 	"projectname": "newTea",
 	"libVersion": "2.8.1",
 	"simulatorType": "wechat",
