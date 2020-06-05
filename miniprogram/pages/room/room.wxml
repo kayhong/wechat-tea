@@ -1,4 +1,6 @@
 <!--miniprogram/pages/room/room.wxml-->
 <text>miniprogram/pages/room/room.wxml</text>
-<button bindtap="addItem">添加房间</button>
+<button bindtap="addRoom">添加房间</button>
 <button bindtap="databaseCloudTest">添加房间</button>
+<button bindtap="getMyRooms">查看房间</button>
+<button bindtap="getRoom" id="12">12房间</button>

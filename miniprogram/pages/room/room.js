@@ -14,9 +14,13 @@ Page({
    */
   onLoad: function (options) {
     if(this.data.roomId < 0){
-      this.data.roomId = wx.cloud.database().collection("Rooms").count() + 1;  
+      wx.cloud.database().collection("Rooms").count().then(res=>{
+        this.setData({
+          roomId: (res.total +1)
+        })
+        console.log(this.data.roomId)
+      })
     }
-    console.log(this.data.roomId)
   },
 
   /**
@@ -67,11 +71,11 @@ Page({
   onShareAppMessage: function () {
 f
   },
-  addItem : function() {
+  addRoom : function() {
     const db = wx.cloud.database().collection("Rooms")
     let x = {
       name: "jack",
-      item:[0,1,2]
+      item:[0,1]
     }
     db.add({
       data :{
@@ -97,9 +101,13 @@ f
   },
   getRoom : function(id){
     const db =wx.cloud.database().collection("Rooms")
-    return db.where({
-      roomId :id
-    }).get()
+    console.log(id.target.id)
+    db.where({
+      roomId: new Number(id.target.id)
+    }).get().then(res=>{
+      console.log(res)
+      return res
+    })
   },
   addItem:function(id,name){
     const db =wx.cloud.database().collection("Romms")
@@ -122,5 +130,32 @@ f
         item : item
       }
     })
+  },
+
+  getMyRooms: function(){
+    if (!this.data.openid) {
+      wx.cloud.callFunction({
+        name: 'login',
+        data: {},
+        success: res => {
+          app.globalData.openid = res.result.openid
+          this.setData({openid: res.result.openid})
+          const db=wx.cloud.database().collection("Rooms")
+          db.where({
+            _openid :this.data.openid
+          }).get().then(res=>{
+            console.log(res)
+            return res
+          })
+        },
+        fail: err => {
+          wx.showToast({
+            icon: 'none',
+            title: '获取 openid 失败，请检查是否有部署 login 云函数',
+          })
+          console.log('[云函数] [login] 获取 openid 失败，请检查是否有部署云函数，错误信息：', err)
+        }
+      })
+    }
   }
 })
