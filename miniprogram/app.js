@@ -1,5 +1,9 @@
 //app.js
 App({
+  globalData: {
+    count: 0
+  },
+
   onLaunch: function () {
     
     if (!wx.cloud) {
@@ -13,8 +17,9 @@ App({
         // env: 'my-env-id',
         traceUser: true,
       })
+      wx.getStorage({
+        key: 'orders',
+      })
     }
-
-    this.globalData = {}
   }
 })
