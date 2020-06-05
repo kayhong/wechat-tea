@@ -60,11 +60,23 @@
     </navigator>
   </view>
 
+  <view class="page-section">
+    <view class="weui-cells__title">可以自动聚焦的input</view>
+    <view class="weui-cells weui-cells_after-title">
+      <view class="weui-cell weui-cell_input">
+        <input class="weui-input" auto-focus placeholder="将会获取焦点"/>
+      </view>
+    </view>
+  </view>
   <view class="uploader">
     <navigator url="../order/order" open-type="navigate" class="uploader-text">
       <text>喝奶茶</text>
     </navigator>
   </view>
-
+  <view class="uploader">
+    <navigator url="../room/room" open-type="navigate" class="uploader-text">
+      <text>喝奶茶</text>
+    </navigator>
+  </view>
 
 </view>
