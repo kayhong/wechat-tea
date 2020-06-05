@@ -1,7 +1,7 @@
 /* miniprogram/components/counter/counter.wxss */
 /*全局样式*/
 page {
-	padding: 20px 0;
+	padding: 0;
 }
  
 /*主容器*/
@@ -11,7 +11,7 @@ page {
 	/*给主容器设一个边框*/
 	border: 1px solid #ccc;
 	border-radius: 3px;
-	margin:0 auto;
+	margin:0;
 }
  
 /*加号和减号*/

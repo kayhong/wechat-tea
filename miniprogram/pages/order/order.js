@@ -8,138 +8,55 @@ Page({
     step: 1,
     counterId: '',
     openid: '',
-    count: null,
     queryResult: '',
-    teaItems: [
-      {name: "红茶拿铁", price: 15, options: [{ice: "1"}, {sugar: [0, 3, 7]}, {pearl: "1"} ]}
+    temperature: ['常温', '加冰', '少冰', '加热'],
+    sugar: ['无糖', '3分甜', '5分甜', '7分甜', '甜到忧伤'],
+    extra: ['珍珠', '枸杞', '决明子'],
+    items: [{
+        name: "红茶拿铁",
+        price: 15,
+        count: 0,
+        temperatureIndex: 0,
+        sugarIndex:0,
+        extraIndex:0
+      },
+      {
+        name: "乌龙茶",
+        price: 15,
+        count: 0,
+        temperatureIndex:0,
+      },
+      {
+        name: "绿茶",
+        price: 15,
+        count: 0,
+        temperatureIndex:0,
+
+      },
+      {
+        name: "芝芝桃桃",
+        price: 30,
+        count: 0,
+        temperatureIndex:0,
+      },
+      {
+        name: "芝芝莓莓",
+        price: 30,
+        count: 0,
+        temperatureIndex:0,        
+      }
     ]
   },
 
   onLoad: function (options) {
-    if (app.globalData.openid) {
-      this.setData({
-        openid: app.globalData.openid
-      })
-    }
-  },
-
-  onAdd: function () {
-    // const db = wx.cloud.database()
-    // db.collection('counters').add({
-    //   data: {
-    //     count: 1
-    //   },
-    //   success: res => {
-    //     // 在返回结果中会包含新创建的记录的 _id
-    //     this.setData({
-    //       counterId: res._id,
-    //       count: 1
-    //     })
-    //     wx.showToast({
-    //       title: '新增记录成功',
-    //     })
-    //     console.log('[数据库] [新增记录] 成功，记录 _id: ', res._id)
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '新增记录失败'
-    //     })
-    //     console.error('[数据库] [新增记录] 失败：', err)
-    //   }
-    // })
-  },
-
-  onQuery: function() {
-    // const db = wx.cloud.database()
-    // // 查询当前用户所有的 counters
-    // db.collection('counters').where({
-    //   _openid: this.data.openid
-    // }).get({
-    //   success: res => {
-    //     this.setData({
-    //       queryResult: JSON.stringify(res.data, null, 2)
-    //     })
-    //     console.log('[数据库] [查询记录] 成功: ', res)
-    //   },
-    //   fail: err => {
-    //     wx.showToast({
-    //       icon: 'none',
-    //       title: '查询记录失败'
-    //     })
-    //     console.error('[数据库] [查询记录] 失败：', err)
-    //   }
-    // })
-  },
-
-  onCounterInc: function() {
-    // const db = wx.cloud.database()
-    // const newCount = this.data.count + 1
-    // db.collection('counters').doc(this.data.counterId).update({
-    //   data: {
-    //     count: newCount
-    //   },
-    //   success: res => {
-    //     this.setData({
-    //       count: newCount
-    //     })
-    //   },
-    //   fail: err => {
-    //     icon: 'none',
-    //     console.error('[数据库] [更新记录] 失败：', err)
-    //   }
-    // })
-  },
-
-  onCounterDec: function() {
-    // const db = wx.cloud.database()
-    // const newCount = this.data.count - 1
-    // db.collection('counters').doc(this.data.counterId).update({
-    //   data: {
-    //     count: newCount
-    //   },
-    //   success: res => {
-    //     this.setData({
-    //       count: newCount
-    //     })
-    //   },
-    //   fail: err => {
-    //     icon: 'none',
-    //     console.error('[数据库] [更新记录] 失败：', err)
-    //   }
-    // })
-  },
-
-  onRemove: function() {
-    // if (this.data.counterId) {
-    //   const db = wx.cloud.database()
-    //   db.collection('counters').doc(this.data.counterId).remove({
-    //     success: res => {
-    //       wx.showToast({
-    //         title: '删除成功',
-    //       })
-    //       this.setData({
-    //         counterId: '',
-    //         count: null,
-    //       })
-    //     },
-    //     fail: err => {
-    //       wx.showToast({
-    //         icon: 'none',
-    //         title: '删除失败',
-    //       })
-    //       console.error('[数据库] [删除记录] 失败：', err)
-    //     }
-    //   })
-    // } else {
-    //   wx.showToast({
-    //     title: '无记录可删，请见创建一个记录',
-    //   })
-    // }
+    this.setData({
+      count: app.globalData.count
+    });
+    app.globalData.count = this.data.count
   },
 
   /** create a payment function */
-  onPayment: function() {
+  onPayment: function () {
 
   },
 
@@ -165,7 +82,7 @@ Page({
         }
       })
     } else {
-      const callback = this.data.step !== 6 ? function() {} : function() {
+      const callback = this.data.step !== 6 ? function () {} : function () {
         console.group('数据库文档')
         console.log('https://developers.weixin.qq.com/miniprogram/dev/wxcloud/guide/database.html')
         console.groupEnd()
@@ -177,25 +94,15 @@ Page({
     }
   },
 
-  prevStep: function () {
-    this.setData({
-      step: this.data.step - 1
-    })
+  numChange(event) {
+    const num = event.detail;
+    app.globalData.count = num.num;
   },
 
-  goHome: function() {
-    const pages = getCurrentPages()
-    if (pages.length === 2) {
-      wx.navigateBack()
-    } else if (pages.length === 1) {
-      wx.redirectTo({
-        url: '../index/index',
-      })
-    } else {
-      wx.reLaunch({
-        url: '../index/index',
-      })
-    }
-  }
-
+  bindTemperatureChange(e) {
+    console.log('picker发送选择改变，携带值为', e.detail.value)
+    this.setData({
+      temperatureIndex: e.detail.value
+    })
+  },
 })
