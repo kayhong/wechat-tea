@@ -1,0 +1,64 @@
+<!--miniprogram/pages/teamAct/teamAct.wxml-->
+<view wx:if="{{location == 'actList'}}">
+  <view class="page-section-title">
+  <button size="mini" type="default" bindtap="createAct">创建活动</button>
+  <button size="mini" type="default" bindtap="createAct">我的活动</button>
+  </view>
+  {{activities.length}}
+  <block class="list" wx:if="{{activities.length}} > 0" wx:for="{{activities}}" wx:key="id">
+    <view class="list-item" bindtap="viewAct" id="{{item.id}}">
+      <text class="request-text">{{item.name}}</text>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{location == 'createAct'}}">
+  <view class="page-body">
+    <form catchsubmit="createSubmit">
+      <view class="page-section">
+        <view class="weui-cells__title">组名</view>
+        <view class="weui-cells weui-cells_after-title">
+          <view class="weui-cell weui-cell_input">
+            <input class="weui-input" name="name" auto-focus maxlength="20" placeholder="请输入组名，20字以内"/>
+          </view>
+        </view>
+      </view>
+      <view class="weui-cells__title">地址</view>
+      <view class="weui-cells weui-cells_after-title">
+        <view class="weui-cell weui-cell_input">
+          <input class="weui-input" name="address" auto-focus maxlength="30" placeholder="活动地址"/>
+        </view>
+      </view>
+      <view class="page-section">
+        <view class="weui-cells__title">活动内容</view>
+        <view class="weui-cells weui-cells_after-title">
+            <editor class="weui-input" name="description" placeholder="描述一下活动" />
+        </view>
+      </view>
+
+      <view class="btn-area">
+        <button type="primary" formType="submit">创建</button>
+      </view>
+    </form>
+  </view>
+</view>
+
+<view wx:if="{{location == 'myAct'}}">
+  <view class="page-section-title">
+  <button size="mini" type="default" bindtap="createAct">创建活动</button>
+  <button size="mini" type="default" bindtap="createAct">所有活动</button>
+  </view>
+  {{activities.length}}
+  <block class="list" wx:if="{{activities.length}} > 0" wx:for="{{activities}}" wx:key="id">
+    <view class="list-item" bindtap="viewAct">
+      <text class="request-text">{{item.name}}</text>
+    </view>
+  </block>
+</view>
+
+<view wx:if="{{location == 'viewAct'}}">
+  <view class="page-section-title">
+  <button size="mini" type="default" bindtap="joinAct">加入</button>
+  </view>
+      <text class="request-text">{{selectedAct.name}}</text>
+</view>

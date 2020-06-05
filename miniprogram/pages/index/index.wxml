@@ -69,4 +69,10 @@
     </navigator>
   </view>
 
+  <!-- <view class="uploader">
+    <navigator url="../teamAct/teamAct" open-type="navigate" class="uploader-text">
+      <text>分组活动</text>
+    </navigator>
+  </view> -->
+
 </view>
